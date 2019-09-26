@@ -1,0 +1,155 @@
+<head>
+    <body>
+        <!-- <button onclick="game()">Click me</button>
+        <p id="score"></p> -->
+        <div id="selection_buttons">
+            <button id ="rock">Rock</button>
+            <button id ="paper">Paper</button>
+            <button id ="scissors">Scissors</button>
+        </div>   
+    </body>
+</head>
+ 
+<script>
+    
+    function computerPlay(){
+
+        var rand = Math.floor(Math.random() * 3);
+        
+        var answer = ""
+
+        if(rand==0)
+        {
+            answer = 'ROCK';
+        }
+
+        else if (rand==1){
+            answer = 'PAPER'
+        }
+
+        else if (rand==2){
+            answer = 'SCISSORS'
+        }
+
+        console.log(answer)
+    
+        return answer;
+
+    }
+
+    function playerPlay(){
+
+        var choice = ''
+        var selection = prompt("Please enter your choice")
+        choice = selection.toUpperCase();
+
+        if(choice === 'ROCK'
+        || choice === 'PAPER'
+        || choice === 'SCISSORS'){
+            return choice;
+        }
+
+        else{
+            console.log("Invalid Selection! Try again")
+            playerPlay();
+        }
+    }
+
+    function playRound(computerPlay, playerPlay){
+
+        var playerResult = playerPlay;
+        var computerResult = computerPlay();
+
+        if(computerResult=== 'ROCK' && playerResult === 'SCISSORS'
+        || computerResult=== 'SCISSORS' && playerResult === 'PAPER'
+        || computerResult=== 'PAPER' && playerResult === 'ROCK'){
+            console.log("computer wins")
+            return "computerWin"
+        }
+
+        else if(playerResult=== 'ROCK' && computerResult === 'SCISSORS'
+        || playerResult=== 'SCISSORS' && computerResult === 'PAPER'
+        || playerResult=== 'PAPER' && computerResult === 'ROCK'){
+            console.log("player wins")
+            return "playerWin"
+        }
+
+        else{
+            console.log("draw")
+        }
+
+    }
+
+    function game(){
+        
+        var start = alert("welcome press any button to continue")
+
+        var round = 0
+        var playerWinCount = 0
+        var computerWinCount = 0
+
+        while(round<=4){
+
+            var result = playRound(computerPlay, playerPlay)
+
+            if(result==="playerWin"){
+                playerWinCount++;
+            } 
+
+            else if(result==='computerWin'){
+                computerWinCount++;
+            }
+
+            if(playerWinCount==3
+            || computerWinCount==3){
+                break;
+            }
+
+            round++;
+        }
+
+        let score = `Computer ${computerWinCount} - ${playerWinCount} Player`
+
+        document.getElementById("score").innerHTML = score;
+
+        if(computerWinCount>playerWinCount){
+            console.log("computer wins game")
+        }
+
+        else if(playerWinCount>computerWinCount){
+            console.log("player wins game")
+        }
+
+        else{
+            console.log("draw")
+        }
+    }
+
+    let buttonSelection = ''
+
+    let rock_button = document.querySelector('#rock');
+    let paper_button = document.querySelector('#paper');
+    let scissors_button = document.querySelector('#scissors');
+
+    rock_button.addEventListener('click', () => {
+    buttonSelection = 'ROCK'
+    playRound(computerPlay, buttonSelection);
+
+});
+    paper_button.addEventListener('click', () => {
+    buttonSelection = 'PAPER'
+    playRound(computerPlay, buttonSelection);
+
+});
+    scissors_button.addEventListener('click', () => {
+    buttonSelection = 'SCISSORS'
+    playRound(computerPlay, buttonSelection);
+
+});
+
+</script>
+
+
+<!-- testing -->
+
+<!-- more testing -->
